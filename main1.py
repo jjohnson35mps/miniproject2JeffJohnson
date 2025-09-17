@@ -9,9 +9,8 @@
 # ✓(5/5 points) Proper import of packages used.
 #(20/20 points) Using a data source of your choice, such as data from data.gov or using the Faker package, generate or retrieve some data for creating basic statistics on. This will generally come in as json data, etc.
 #Think of some question you would like to solve such as:
-#"How many homes in the US have access to 100Mbps Internet or more?"
-#"How many movies that Ridley Scott directed is on Netflix?" - https://www.kaggle.com/datasets/shivamb/netflix-shows
-#Here are some other great datasets: https://www.kaggle.com/datasets
+# "How many BMW M3s were sold in North America?"
+# "How many BMW M3s were in North America were automatics?"
 #(10/10 points) Store this information in Pandas dataframe. These should be 2D data as a dataframe, meaning the data is labeled tabular data.
 #(10/10 points) Using matplotlib, graph this data in a way that will visually represent the data. Really try to build some fancy charts here as it will greatly help you in future homework assignments and in the final project.
 #(10/10 points) Save these graphs in a folder called charts as PNG files. Do not upload these to your project folder, the project should save these when it executes. You may want to add this folder to your .gitignore file.
@@ -21,13 +20,33 @@
 # pip install pandas
 # pip install kagglehub
 # pip install kagglehub[pandas-datasets]
+# pip install matplotlib
 
 #Import needed packages
 import pandas as pd
 import kagglehub
 from kagglehub import KaggleDatasetAdapter
+from pathlib import Path
+import matplotlib.pyplot as plt
 
-# Download latest version
-file_path = kagglehub.dataset_download("eshummalik/bmw-sales-dataset")
+#Download latest dataset version
+file_path = Path(kagglehub.dataset_download("eshummalik/bmw-sales-dataset", force_download=True))
 
-print("Path to dataset files:", file_path)
+#print("Path to dataset files:", file_path)
+
+for file in file_path.rglob("*.csv"):
+    print("Filename:", file.name)
+
+    #Load a DataFrame with a specific version of a CSV
+    df = kagglehub.dataset_load(
+      KaggleDatasetAdapter.PANDAS,
+      "eshummalik/bmw-sales-dataset",
+      str(file.name),
+    )
+
+    print(df.head(5))
+    print(df.info())
+    print(df.describe())
+    #How many BMW M3s were sold in North America?
+    #How many BMW M3s were in North America were automatics?
+    print("Count:", df.groupby(['Model','Region']).count())

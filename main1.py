@@ -28,7 +28,6 @@ import pandas as pd
 import kagglehub
 from kagglehub import KaggleDatasetAdapter
 from pathlib import Path
-import matplotlib.pyplot as plt
 import shutil
 
 #Initialize project root and charts output directory
@@ -66,8 +65,3 @@ for file in file_path.rglob("*.csv"):
     #How many BMW M3s were automatics?
     print("Count:", df.groupby(['Model','Region']).count())
     print("Count:", df.groupby(['Model','Transmission']).count())
-
-    bmw_sales_na = df.groupby(['Model','Region'])
-    bmw_sales_na_tranny = df.groupby(['Model','Transmission'])
-
-    plt.plot(bmw_sales_na_tranny)

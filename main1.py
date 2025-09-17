@@ -7,7 +7,7 @@
 
 # ✓(5/5 points) Initial comments with your name, class and project at the top of your .py file.
 # ✓(5/5 points) Proper import of packages used.
-#(20/20 points) Using a data source of your choice, such as data from data.gov or using the Faker package, generate or retrieve some data for creating basic statistics on. This will generally come in as json data, etc.
+# ✓(20/20 points) Using a data source of your choice, such as data from data.gov or using the Faker package, generate or retrieve some data for creating basic statistics on. This will generally come in as json data, etc.
 #Think of some question you would like to solve such as:
 # "How many BMW M3s were sold in North America?"
 # "How many BMW M3s were in North America were automatics?"
@@ -29,6 +29,20 @@ import kagglehub
 from kagglehub import KaggleDatasetAdapter
 from pathlib import Path
 import matplotlib.pyplot as plt
+import shutil
+
+#Initialize project root and charts output directory
+project_root = Path().resolve()
+output_directory = project_root / "charts"
+
+if not output_directory.exists():
+    #Create output directory
+    output_directory.mkdir(parents=True, exist_ok=True)
+else:
+    #Remove output directory
+    shutil.rmtree(output_directory)
+    #Create output directory
+    output_directory.mkdir(parents=True, exist_ok=True)
 
 #Download latest dataset version
 file_path = Path(kagglehub.dataset_download("eshummalik/bmw-sales-dataset", force_download=True))
@@ -45,9 +59,15 @@ for file in file_path.rglob("*.csv"):
       str(file.name),
     )
 
-    print(df.head(5))
-    print(df.info())
-    print(df.describe())
+    #print(df.head(5))
+    #print(df.info())
+    #print(df.describe())
     #How many BMW M3s were sold in North America?
-    #How many BMW M3s were in North America were automatics?
+    #How many BMW M3s were automatics?
     print("Count:", df.groupby(['Model','Region']).count())
+    print("Count:", df.groupby(['Model','Transmission']).count())
+
+    bmw_sales_na = df.groupby(['Model','Region'])
+    bmw_sales_na_tranny = df.groupby(['Model','Transmission'])
+
+    plt.plot(bmw_sales_na_tranny)

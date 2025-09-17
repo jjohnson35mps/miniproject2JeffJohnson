@@ -21,6 +21,7 @@
 # pip install kagglehub
 # pip install kagglehub[pandas-datasets]
 # pip install matplotlib
+# pip freeze > requirements.txt
 
 #Import needed packages
 import pandas as pd

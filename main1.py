@@ -35,15 +35,19 @@ import matplotlib.pyplot as plt
 
 #declare functions
 def save_chart(chart_title):
-    # Save chart
+    #Save chart
     outfile = output_directory / f"{chart_title}.png"
     plt.savefig(outfile)
     plt.show()
 
+def plot_barh(col_names: object, values: object, color: object):
+    #Plot model data to a graph
+    plt.barh(col_names, values, color=color)
+
 #Initialize variables
 bmw_sales_data = ['Models','Colors','Transmissions']
 
-#Initialize project root and data and charts output directories
+#Initialize project root, and data and charts output directories
 project_root = Path().resolve()
 output_directory = project_root / "charts"
 data_directory = project_root / "data"
@@ -101,14 +105,17 @@ for file in file_path.rglob("*.csv"):
             x6 = models["X6"]
             m3 = models["M3"]
             # Plot model data to a graph
-            plt.barh(["3 series", " 5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],
-                     [three_series, five_series, seven_series, i3, i8, x1, x3, x5, x6, m3, m5],
+            #plt.barh(["3 series", " 5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],
+            #         [three_series, five_series, seven_series, i3, i8, x1, x3, x5, x6, m3, m5],
+            #         color=['r', 'm', 'b', 'r', 'm', 'b', 'r', 'm', 'b', 'r', 'm'])
+            plot_barh(["3 series", "5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],
+                     [int(three_series), int(five_series), int(seven_series), int(i3), int(i8), int(x1), int(x3), int(x5), int(x6), int(m3), int(m5)],
                      color=['r', 'm', 'b', 'r', 'm', 'b', 'r', 'm', 'b', 'r', 'm'])
-            # Add title to chart
+            #Add title to chart
             plt.title(title)
-            # Add label to X axis
+            #Add label to X axis
             plt.xlabel(xaxis_title)
-            # Add label to Y axis
+            #Add label to Y axis
             plt.ylabel(yaxis_title)
             plt.tight_layout()
 
@@ -120,7 +127,7 @@ for file in file_path.rglob("*.csv"):
             yaxis_title = "Colors"
             # set plot data
             colors = df[["Color"]].value_counts()
-            print(colors)
+            #print(colors)
             red = colors["Red"]
             silver = colors["Silver"]
             grey = colors["Grey"]
@@ -144,7 +151,7 @@ for file in file_path.rglob("*.csv"):
             yaxis_title = "Count"
             # set plot data
             transmissions = df[["Transmission"]].value_counts()
-            print(transmissions)
+            #print(transmissions)
             automatic = transmissions["Automatic"]
             manual = transmissions["Manual"]
             # Plot model data to a graph

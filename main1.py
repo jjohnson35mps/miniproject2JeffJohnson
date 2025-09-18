@@ -33,6 +33,13 @@ import shutil
 import os
 import matplotlib.pyplot as plt
 
+#declare functions
+def save_chart(chart_title):
+    # Save chart
+    outfile = output_directory / f"{chart_title}.png"
+    plt.savefig(outfile)
+    plt.show()
+
 #Initialize variables
 bmw_sales_data = ['Models','Colors','Transmissions']
 
@@ -71,47 +78,95 @@ for file in file_path.rglob("*.csv"):
 
     print("Processing Dataset:", file.name)
 
-    #print(df.info())
-    #print(df.describe())
-
     #Create dataset from csv file
     df = pd.read_csv(str(file_path / file.name))
 
-    models = df[["Model"]].value_counts()
-    #print(models)
-    seven_series = models["7 Series"]
-    i3 = models["i3"]
-    i8 = models["i8"]
-    three_series = models["3 Series"]
-    five_series = models["5 Series"]
-    x1 = models["X1"]
-    x3 = models["X3"]
-    x5 = models["X5"]
-    m5 = models["M5"]
-    x6 = models["X6"]
-    m3 = models["M3"]
+    for item in bmw_sales_data:
+        if item == "Models":
+            #Set plot labels
+            title = "BMW Models"
+            xaxis_title = "Count"
+            yaxis_title = "Models"
+            #set plot data
+            models = df[["Model"]].value_counts()
+            seven_series = models["7 Series"]
+            i3 = models["i3"]
+            i8 = models["i8"]
+            three_series = models["3 Series"]
+            five_series = models["5 Series"]
+            x1 = models["X1"]
+            x3 = models["X3"]
+            x5 = models["X5"]
+            m5 = models["M5"]
+            x6 = models["X6"]
+            m3 = models["M3"]
+            # Plot model data to a graph
+            plt.barh(["3 series", " 5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],
+                     [three_series, five_series, seven_series, i3, i8, x1, x3, x5, x6, m3, m5],
+                     color=['r', 'm', 'b', 'r', 'm', 'b', 'r', 'm', 'b', 'r', 'm'])
+            # Add title to chart
+            plt.title(title)
+            # Add label to X axis
+            plt.xlabel(xaxis_title)
+            # Add label to Y axis
+            plt.ylabel(yaxis_title)
+            plt.tight_layout()
 
-    #Plot model data to a graph
-    plt.barh(["3 series", " 5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],[three_series, five_series, seven_series, i3, i8, x1, x3, x5, x6, m3, m5], color= ['r','m','b','r','m','b','r','m','b','r','m'])
-    #Add title to chart
-    plt.title("BMW Models")
-    #Add label to X axis
-    plt.xlabel('Count')
-    #Add label to Y axis
-    plt.ylabel('Models')
-    plt.tight_layout()
+            save_chart(title)
 
-    #Save chart
-    file_name = bmw_sales_data[0]
-    outfile = output_directory / f"{file_name}.png"
-    plt.savefig(outfile)
+        if item == "Colors":
+            title = "BMW Colors"
+            xaxis_title = "Count"
+            yaxis_title = "Colors"
+            # set plot data
+            colors = df[["Color"]].value_counts()
+            print(colors)
+            red = colors["Red"]
+            silver = colors["Silver"]
+            grey = colors["Grey"]
+            white = colors["White"]
+            black = colors["Black"]
+            blue = colors["Blue"]
+            # Plot model data to a graph
+            plt.barh(["Red", "Silver", "Grey", "White", "Black", "Blue"],[red, silver, grey, white, black, blue],
+                     color=['r', 'm', 'b', 'r', 'm', 'b'])
+            # Add title to chart
+            plt.title(title)
+            # Add label to X axis
+            plt.xlabel(xaxis_title)
+            # Add label to Y axis
+            plt.ylabel(yaxis_title)
+            plt.tight_layout()
+            save_chart(title)
+        if item == "Transmissions":
+            title = "BMW Transmissions"
+            xaxis_title = "Transmission"
+            yaxis_title = "Count"
+            # set plot data
+            transmissions = df[["Transmission"]].value_counts()
+            print(transmissions)
+            automatic = transmissions["Automatic"]
+            manual = transmissions["Manual"]
+            # Plot model data to a graph
+            plt.bar(["Automatic", "Manual"],[automatic, manual],color=['r', 'b'])
+            # Add title to chart
+            plt.title(title)
+            # Add label to X axis
+            plt.xlabel(xaxis_title)
+            # Add label to Y axis
+            plt.ylabel(yaxis_title)
+            plt.tight_layout()
 
-    plt.show()
+            save_chart(title)
 
-    years = df[["Year"]].value_counts()
-    colors = df[["Color"]].value_counts()
-    regions = df[["Region"]].value_counts()
-    transmissions = df[["Transmission"]].value_counts()
+
+    #years = df[["Year"]].value_counts()
+    #colors = df[["Color"]].value_counts()
+    #regions = df[["Region"]].value_counts()
+    #transmissions = df[["Transmission"]].value_counts()
+
+
+
 
     #print(df.head(5))
     #print(df.info())
@@ -119,4 +174,4 @@ for file in file_path.rglob("*.csv"):
 
     #How many BMW M3s were sold in North America?
     #How many BMW M3s were automatics?
-    #print(models["M3"])
+

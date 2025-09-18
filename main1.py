@@ -11,11 +11,11 @@ import numpy as np
 #Think of some question you would like to solve such as:
 # "How many BMW M3s were sold in North America?"
 # "How many BMW M3s were in North America were automatics?"
-#(10/10 points) Store this information in Pandas dataframe. These should be 2D data as a dataframe, meaning the data is labeled tabular data.
-#(10/10 points) Using matplotlib, graph this data in a way that will visually represent the data. Really try to build some fancy charts here as it will greatly help you in future homework assignments and in the final project.
-#(10/10 points) Save these graphs in a folder called charts as PNG files. Do not upload these to your project folder, the project should save these when it executes. You may want to add this folder to your .gitignore file.
-#(10/10 points) There should be a minimum of 5 commits on your project, be sure to commit often!
-#(10/10 points) I will be checking out the main branch of your project. Please be sure to include a requirements.txt file which contains all the packages that need installed. You can create this fille with the output of pip freeze at the terminal prompt.
+# ✓(10/10 points) Store this information in Pandas dataframe. These should be 2D data as a dataframe, meaning the data is labeled tabular data.
+# ✓(10/10 points) Using matplotlib, graph this data in a way that will visually represent the data. Really try to build some fancy charts here as it will greatly help you in future homework assignments and in the final project.
+# ✓(10/10 points) Save these graphs in a folder called charts as PNG files. Do not upload these to your project folder, the project should save these when it executes. You may want to add this folder to your .gitignore file.
+# ✓(10/10 points) There should be a minimum of 5 commits on your project, be sure to commit often!
+# ✓(10/10 points) I will be checking out the main branch of your project. Please be sure to include a requirements.txt file which contains all the packages that need installed. You can create this fille with the output of pip freeze at the terminal prompt.
 #(20/20 points) There should be a README.md file in your project that explains what your project is, how to install the pip requirements, and how to execute the program. Please use the GitHub flavor of Markdown. Be thorough on the explanations.
 # pip install pandas
 # pip install kagglehub
@@ -40,9 +40,9 @@ def save_chart(chart_title):
     plt.savefig(outfile)
     plt.show()
 
-def plot_barh(col_names: object, values: object,  plot_title: str, plot_xaxis_title: str, plot_yaxis_title: str, color: object):
+def plot_barh(col_names: object, values: object,  plot_title: str, plot_xaxis_title: str, plot_yaxis_title: str, color: object, hatch: object, edgecolor: str = "Black", linewidth: float = 1):
     #Plot model data to a graph
-    plt.barh(col_names, values, color=color)
+    plt.barh(col_names, values, color=color, hatch=hatch, edgecolor=edgecolor, linewidth=linewidth)
     #Add title to chart
     plt.title(plot_title)
     #Add label to X axis
@@ -51,9 +51,11 @@ def plot_barh(col_names: object, values: object,  plot_title: str, plot_xaxis_ti
     plt.ylabel(plot_yaxis_title)
     plt.tight_layout()
 
-def plot_bar(col_names: object, values: object, plot_title: str, plot_xaxis_title: str, plot_yaxis_title: str, color: object):
+def plot_bar(col_names: object, values: object, plot_title: str, plot_xaxis_title: str, plot_yaxis_title: str, color: object, edgecolor: str = "Cyan", linewidth: float = 5):
+    plt.title(plot_title)
+    plt.xlabel(plot_xaxis_title)
     #Plot model data to a graph
-    plt.barh(col_names, values, color=color)
+    plt.bar(col_names, values, color=color, edgecolor=edgecolor, linewidth=linewidth)
     #Add title to chart
     plt.title(plot_title)
     #Add label to X axis
@@ -102,6 +104,7 @@ for file in file_path.rglob("*.csv"):
 
     #Create dataset from csv file
     df = pd.read_csv(str(file_path / file.name))
+    print(df.head())
 
     for item in bmw_sales_data:
         if item == "Models":
@@ -130,7 +133,9 @@ for file in file_path.rglob("*.csv"):
                       title,
                       xaxis_title,
                       yaxis_title,
-                     color=['r', 'm', 'b', 'r', 'm', 'b', 'r', 'm', 'b', 'r', 'm'])
+                      color=['g', 'm', 'b', 'g', 'm', 'b', 'g', 'm', 'b', 'g', 'm'],
+                      hatch="|",
+                      edgecolor="Black",)
 
             #Call save_chart function
             save_chart(title)
@@ -156,7 +161,7 @@ for file in file_path.rglob("*.csv"):
                     title,
                     xaxis_title,
                     yaxis_title,
-                    color=['r', 'm', 'b', 'r', 'm', 'b'])
+                    color=['c', 'b', 'k', 'c', 'b', 'k'])
 
             #Call save_chart function
             save_chart(title)
@@ -178,7 +183,8 @@ for file in file_path.rglob("*.csv"):
                       title,
                       xaxis_title,
                       yaxis_title,
-                      color=['r', 'b'])
+                      color=['y', 'w'],
+                      hatch="x")
 
             #Call save_chart function
             save_chart(title)

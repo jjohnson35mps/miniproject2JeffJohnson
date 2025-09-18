@@ -1,7 +1,7 @@
 # INF601 - Advanced Programming in Python
 # Jeff Johnson
-# Mini Project 1
-
+# Mini Project 2
+import numpy as np
 #Please submit a link to your GitHub project. Do not submit your project files here!
 #This project will be using Pandas dataframes. This isn't intended to be full blown data science project. The goal here is to come up with some question and then see what API or datasets you can use to get the information needed to answer that question.
 
@@ -22,18 +22,27 @@
 # pip install kagglehub[pandas-datasets]
 # pip install matplotlib
 # pip freeze > requirements.txt
+#https://github.com/Kaggle/kagglehub
+#https://docs.python.org/3/library/pathlib.html
 
 #Import needed packages
 import pandas as pd
 import kagglehub
-from kagglehub import KaggleDatasetAdapter
 from pathlib import Path
 import shutil
+import os
+import matplotlib.pyplot as plt
 
-#Initialize project root and charts output directory
+#Initialize variables
+bmw_sales_data = ['Models','Colors','Transmissions']
+
+#Initialize project root and data and charts output directories
 project_root = Path().resolve()
 output_directory = project_root / "charts"
+data_directory = project_root / "data"
+os.environ['KAGGLEHUB_CACHE'] = str(data_directory)
 
+#Create output_directory
 if not output_directory.exists():
     #Create output directory
     output_directory.mkdir(parents=True, exist_ok=True)
@@ -43,25 +52,71 @@ else:
     #Create output directory
     output_directory.mkdir(parents=True, exist_ok=True)
 
+#Create data_directory
+if not data_directory.exists():
+    #Create data directory
+    data_directory.mkdir(parents=True, exist_ok=True)
+else:
+    #Remove data directory
+    shutil.rmtree(data_directory)
+    #Create data directory
+    data_directory.mkdir(parents=True, exist_ok=True)
+
 #Download latest dataset version
 file_path = Path(kagglehub.dataset_download("eshummalik/bmw-sales-dataset", force_download=True))
 
-#print("Path to dataset files:", file_path)
+print("Downloading dataset to:", file_path)
 
 for file in file_path.rglob("*.csv"):
-    print("Filename:", file.name)
 
-    #Load a DataFrame with a specific version of a CSV
-    df = kagglehub.dataset_load(
-      KaggleDatasetAdapter.PANDAS,
-      "eshummalik/bmw-sales-dataset",
-      str(file.name),
-    )
+    print("Processing Dataset:", file.name)
+
+    #print(df.info())
+    #print(df.describe())
+
+    #Create dataset from csv file
+    df = pd.read_csv(str(file_path / file.name))
+
+    models = df[["Model"]].value_counts()
+    #print(models)
+    seven_series = models["7 Series"]
+    i3 = models["i3"]
+    i8 = models["i8"]
+    three_series = models["3 Series"]
+    five_series = models["5 Series"]
+    x1 = models["X1"]
+    x3 = models["X3"]
+    x5 = models["X5"]
+    m5 = models["M5"]
+    x6 = models["X6"]
+    m3 = models["M3"]
+
+    #Plot model data to a graph
+    plt.barh(["3 series", " 5 series", "7 series", "i3", "i8", "x1", "x3", "x5", "x6", "m3", "m5"],[three_series, five_series, seven_series, i3, i8, x1, x3, x5, x6, m3, m5], color= ['r','m','b','r','m','b','r','m','b','r','m'])
+    #Add title to chart
+    plt.title("BMW Models")
+    #Add label to X axis
+    plt.xlabel('Count')
+    #Add label to Y axis
+    plt.ylabel('Models')
+    plt.tight_layout()
+
+    #Save chart
+    file_name = bmw_sales_data[0]
+    outfile = output_directory / f"{file_name}.png"
+    plt.savefig(outfile)
+
+    plt.show()
+
+    years = df[["Year"]].value_counts()
+    colors = df[["Color"]].value_counts()
+    regions = df[["Region"]].value_counts()
+    transmissions = df[["Transmission"]].value_counts()
 
     #print(df.head(5))
     #print(df.info())
     #print(df.describe())
+
     #How many BMW M3s were sold in North America?
     #How many BMW M3s were automatics?
-    print("Count:", df.groupby(['Model','Region']).count())
-    print("Count:", df.groupby(['Model','Transmission']).count())
+    #print(models["M3"])

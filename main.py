@@ -8,9 +8,6 @@
 # ✓(5/5 points) Initial comments with your name, class and project at the top of your .py file.
 # ✓(5/5 points) Proper import of packages used.
 # ✓(20/20 points) Using a data source of your choice, such as data from data.gov or using the Faker package, generate or retrieve some data for creating basic statistics on. This will generally come in as json data, etc.
-#Think of some question you would like to solve such as:
-# "How many BMW M3s were sold in North America?"
-# "How many BMW M3s were in North America were automatics?"
 # ✓(10/10 points) Store this information in Pandas dataframe. These should be 2D data as a dataframe, meaning the data is labeled tabular data.
 # ✓(10/10 points) Using matplotlib, graph this data in a way that will visually represent the data. Really try to build some fancy charts here as it will greatly help you in future homework assignments and in the final project.
 # ✓(10/10 points) Save these graphs in a folder called charts as PNG files. Do not upload these to your project folder, the project should save these when it executes. You may want to add this folder to your .gitignore file.

@@ -1,7 +1,7 @@
 # INF601 - Advanced Programming in Python
 # Jeff Johnson
 # Mini Project 2
-import numpy as np
+
 #Please submit a link to your GitHub project. Do not submit your project files here!
 #This project will be using Pandas dataframes. This isn't intended to be full blown data science project. The goal here is to come up with some question and then see what API or datasets you can use to get the information needed to answer that question.
 
@@ -22,8 +22,6 @@ import numpy as np
 # pip install kagglehub[pandas-datasets]
 # pip install matplotlib
 # pip freeze > requirements.txt
-#https://github.com/Kaggle/kagglehub
-#https://docs.python.org/3/library/pathlib.html
 
 #Import needed packages
 import pandas as pd
@@ -33,7 +31,7 @@ import shutil
 import os
 import matplotlib.pyplot as plt
 
-#declare functions
+#Declare functions
 def save_chart(chart_title):
     #Save chart
     outfile = output_directory / f"{chart_title}.png"
@@ -52,8 +50,6 @@ def plot_barh(col_names: object, values: object,  plot_title: str, plot_xaxis_ti
     plt.tight_layout()
 
 def plot_bar(col_names: object, values: object, plot_title: str, plot_xaxis_title: str, plot_yaxis_title: str, color: object, edgecolor: str = "Cyan", linewidth: float = 5):
-    plt.title(plot_title)
-    plt.xlabel(plot_xaxis_title)
     #Plot model data to a graph
     plt.bar(col_names, values, color=color, edgecolor=edgecolor, linewidth=linewidth)
     #Add title to chart
@@ -104,7 +100,7 @@ for file in file_path.rglob("*.csv"):
 
     #Create dataset from csv file
     df = pd.read_csv(str(file_path / file.name))
-    print(df.head())
+    #print(df.head())
 
     for item in bmw_sales_data:
         if item == "Models":
@@ -113,7 +109,7 @@ for file in file_path.rglob("*.csv"):
             xaxis_title = "Count"
             yaxis_title = "Models"
 
-            #set plot data
+            #Set plot data
             models = df[["Model"]].value_counts()
             seven_series = models["7 Series"]
             i3 = models["i3"]
@@ -143,8 +139,8 @@ for file in file_path.rglob("*.csv"):
         if item == "Colors":
             #Set plot labels
             title = "BMW Colors"
-            xaxis_title = "Count"
-            yaxis_title = "Colors"
+            xaxis_title = "Colors"
+            yaxis_title = "Count"
 
             #Set plot data
             colors = df[["Color"]].value_counts()
@@ -188,3 +184,5 @@ for file in file_path.rglob("*.csv"):
 
             #Call save_chart function
             save_chart(title)
+
+print("Exiting now...")

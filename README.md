@@ -1,16 +1,17 @@
 ### INF601 - Advanced Programming in Python
 ### Jeff Johnson
-### Mini Project 1
+### Mini Project 2
  
  
-## Mini Project 1
+## Mini Project 2
  
-Mini Project 1 queries last 10 days of stock information for Apple, Draft King, Microsoft, Rubrik, and Tesla. It then creates graphs for each stock, plots the 10 stock prices over each day, and saves the charts to a folder called 'charts'.
+Mini Project 2 downloads a BMW sales dataset via KaggleHub, then loads each CSV into a Pandas DataFrame.
+The script aggregates counts for models, colors, and transmissions and plots them using Matplotlib.
  
 ## Description
  
-The program pulls financial data from the yfinance API, processes arrays using NumPy, and plots charts with matplotlib. Each stock closing price for Apple, DraftKings, Microsoft, Rubrik, and Tesla are collected and scaled based on minimum and maximum values and plotted on a graph with X and Y axis labels and a title. The program ensures that a charts directory exists before saving the charts as .png files.
- 
+The program downloads BMW sales data with KaggleHub, refreshes its local data/ and charts/ folders, and loads each CSV into a DataFrame. It totals models, colors, and transmissions, then creates clear bar charts (horizontal for models/transmissions, vertical for colors) and saves them as PNGs in charts folder.
+
 ## Getting Started
  
 ### Dependencies
@@ -22,16 +23,17 @@ The program pulls financial data from the yfinance API, processes arrays using N
     - Linux
 - Required libraries (install with pip):
 ```
-pip install numpy
+pip install pandas
+pip install kagglehub
+pip install kagglehub[pandas-datasets]
 pip install matplotlib
-pip install yfinance
 ```
 
 ## Installing
  
 1. Clone or download this project to your local machine.
 2. Ensure you have the required dependencies listed above installed.
-3. Running main.py will automatically create the charts folder if it doesn’t already exist.
+3. Running main.py will automatically create the charts and data folders if they don’t already exist.
  
 ## Executing program
  
@@ -65,5 +67,9 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
  
 Inspiration, code snippets, etc.
 - [Matplotlib Documentation](https://matplotlib.org/stable/tutorials/pyplot.html)
-- [yfinance Documentation](https://ranaroussi.github.io/yfinance/)
+- [Pandas Documentation](https://pandas.pydata.org/pandas-docs/stable/getting_started/overview.html)
+- [kagglehub Documentation](https://github.com/Kaggle/kagglehub/tree/main)
+- [kagglehub cache Documentation](https://github.com/Kaggle/kagglehub#change-the-default-cache-folder)
 - [shutil Documentation](https://docs.python.org/3/library/shutil.html)
+- [pathlib Documentation](https://docs.python.org/3/library/pathlib.html)
+- [os Documentation](https://docs.python.org/3/library/os.html)

@@ -19,7 +19,6 @@
 #(20/20 points) There should be a README.md file in your project that explains what your project is, how to install the pip requirements, and how to execute the program. Please use the GitHub flavor of Markdown. Be thorough on the explanations.
 # pip install pandas
 # pip install kagglehub
-# pip install kagglehub[pandas-datasets]
 # pip install matplotlib
 # pip freeze > requirements.txt
 

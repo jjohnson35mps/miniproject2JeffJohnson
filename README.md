@@ -33,7 +33,7 @@ pip install matplotlib
 1. Clone or download this project to your local machine.
 2. Ensure you have the required dependencies listed above installed.
 3. Running main.py will automatically create the charts and data folders if they don’t already exist.
-4. Running main.py will also automatically download the BMW sales data CSV file. It can be manually downloaded here: https://www.kaggle.com/datasets/eshummalik/bmw-sales-dataset
+4. Running main.py will automatically download the BMW sales data CSV file. It can be manually downloaded here: https://www.kaggle.com/datasets/eshummalik/bmw-sales-dataset
  
 ## Executing program
  

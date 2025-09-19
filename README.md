@@ -25,7 +25,6 @@ The program downloads BMW sales data with KaggleHub, refreshes its local data/ a
 ```
 pip install pandas
 pip install kagglehub
-pip install kagglehub[pandas-datasets]
 pip install matplotlib
 ```
 
